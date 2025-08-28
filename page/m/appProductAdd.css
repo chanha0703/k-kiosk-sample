@@ -1,0 +1,259 @@
+/* 검색바 v2 */
+.filter-bar.v2 {
+    position: sticky;
+    top: 0;  /* content 내부 스크롤 기준 */
+    z-index: 900;
+    background: #fff;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 셀렉트 */
+.search-select {
+    flex: 0 0 30%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+}
+
+/* input + icon */
+.input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.search-input {
+    width: 100%;
+    padding: 6px 36px 6px 8px; /* 오른쪽 여백 확보 */
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* input 안쪽 아이콘 버튼 */
+.search-icon-btn {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: #777;
+}
+
+/* SUMMARY SCROLL */
+.scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 12px 6px 12px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+/* FAB 버튼 */
+.fab-container {
+    position: fixed;
+    bottom: calc(80px + env(safe-area-inset-bottom));
+    right: 16px;
+    z-index: 950;
+}
+
+/* 공통 FAB */
+.fab-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    color: #333;
+    background: #FFC94D; /* 기본 파스텔 옐로우 */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* 은은한 그림자 */
+}
+
+/* 메인 FAB */
+.main-fab {
+    background: #FFC94D;
+    font-size: 16px;
+    animation: fabFloat 2s ease-in-out infinite;
+}
+
+.fab-register {
+    background: #FFB84D;
+    font-size: 13px;
+}
+
+/* Top FAB (중립적 그레이) */
+.fab-top {
+    background: #BDBDBD;
+    font-size: 13px;
+}
+
+/* 기본 상태 */
+.sub-fab {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 열렸을 때 */
+.fab-container.open .fab-register {
+    bottom: 70px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.fab-container.open .fab-top {
+    bottom: 140px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* FAB 뜨는 효과 */
+@keyframes fabFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+/* Product List */
+.product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 80px;
+}
+
+.product-card {
+    background: #FFF;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+.product-card .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.p-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+}
+
+.p-barcode {
+    font-size: 14px;
+    color: #777;
+}
+
+.p-price {
+    display: flex;
+    gap: 6px;
+    font-size: 15px;
+}
+
+.p-price .original {
+    color: #777;
+    text-decoration: line-through;
+    font-size: 14px;
+}
+
+.p-price .discount {
+    color: #D32F2F;
+    font-weight: bold;
+}
+
+.p-price .single {
+    font-weight: bold;
+}
+
+.p-stock {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.p-stock.normal { color: #388E3C; }
+.p-stock.warning { color: #FBC02D; }
+.p-stock.danger { color: #D32F2F; }
+
+/* Classic Toggle */
+.p-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 4px;
+}
+
+.toggle-label {
+    font-size: 14px;
+    color: #333;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    border-radius: 22px;
+    transition: 0.3s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+    background-color: #FFD54F;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(20px);
+}

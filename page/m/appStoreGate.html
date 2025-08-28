@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>매장관리 GATE- APP</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <link rel="stylesheet" href="./appHeader.css">
+  <link rel="stylesheet" href="./appStoreGate.css">
+  <link rel="stylesheet" href="./appFooter.css">
+</head>
+<body>
+<div class="app-container flex-container">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="store-select">
+      <span class="store-name">신림동 얼음왕국1호점</span>
+      <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M6 9l6 6 6-6"/>
+      </svg>
+    </div>
+    <div class="icon-btn notification">
+      <!-- 알림 아이콘 -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 17h5l-1.4-1.4A2 2 0 0118 14V11a6 6 0 10-12 0v3a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+      </svg>
+      <span class="badge"></span>
+    </div>
+  </header>
+
+  <main class="content gate-content">
+    <div class="gate-buttons">
+      <a href="javascript:void(0)" class="gate-card">
+        <div class="card-title">매장 관리</div>
+        <div class="card-sub">매장 정보 및 설정 관리</div>
+      </a>
+      <a href="appProductAdd.html" class="gate-card">
+        <div class="card-title">상품 관리</div>
+        <div class="card-sub">상품 등록 및 재고 확인</div>
+      </a>
+    </div>
+  </main>
+
+  <!-- Tabs -->
+  <nav class="tabs">
+    <!-- 매출 -->
+    <div class="tab" onclick="location.href='appSaleGate.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M4 18h3V8H4v10zm6 0h3V4h-3v14zm6 0h3v-6h-3v6z"/>
+      </svg>
+      <span>매출</span>
+    </div>
+
+    <!-- 매장관리 -->
+    <div class="tab active" onclick="location.href='appStoreGate.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M9 22V12h6v10"/>
+      </svg>
+      <span>매장관리</span>
+    </div>
+
+    <!-- 홈 -->
+    <div class="tab" onclick="location.href='appMain.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M3 9.75l9-7.5 9 7.5V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21V9.75z"/>
+      </svg>
+      <span>홈</span>
+    </div>
+
+    <!-- 공지사항 -->
+    <div class="tab">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M3 4h18v14H3z"/>
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M8 8h8M8 12h6"/>
+      </svg>
+      <span>공지사항</span>
+    </div>
+
+    <!-- 설정 -->
+    <div class="tab">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M19.14 12.936c.043-.303.07-.614.07-.936s-.027-.633-.08-.936l2.037-1.593a.48.48 0 00.11-.602l-1.928-3.34a.48.48 0 00-.57-.22l-2.4.96a7.55 7.55 0 00-1.617-.936l-.36-2.52a.48.48 0 00-.475-.408h-3.856a.48.48 0 00-.474.408l-.36 2.52a7.476 7.476 0 00-1.618.936l-2.4-.96a.48.48 0 00-.57.22L2.72 8.87a.48.48 0 00.11.602l2.037 1.593a7.712 7.712 0 000 1.872L2.83 14.63a.48.48 0 00-.11.602l1.928 3.34a.48.48 0 00.57.22l2.4-.96c.5.39 1.05.714 1.618.936l.36 2.52c.035.24.24.408.474.408h3.856c.234 0 .44-.168.475-.408l.36-2.52a7.55 7.55 0 001.617-.936l2.4.96c.205.082.438.003.57-.22l1.928-3.34a.48.48 0 00-.11-.602l-2.037-1.593zM12 15.6a3.6 3.6 0 110-7.2 3.6 3.6 0 010 7.2z"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>설정</span>
+    </div>
+  </nav>
+
+</div>
+<script>
+
+  $(function() {
+    updateNotification(2);
+
+    // 탭 클릭 이벤트
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  });
+
+  function updateNotification(count) {
+    const $badge = $(".notification .badge");
+    if (count > 0) {
+      $badge.text(count).show();
+    } else {
+      $badge.hide();
+    }
+  }
+</script>
+</body>
+</html>

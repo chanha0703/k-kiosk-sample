@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>k-admin-list</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="./list.css">
+  <link rel="stylesheet" href="./admin_LNB.css">
+</head>
+<body>
+<div class="admin-container">
+
+  <!-- LNB -->
+  <aside class="lnb">
+    <div class="lnb-logo">관리자모드</div>
+    <nav class="lnb-menu">
+      <button class="lnb-item">매장정보</button>
+      <button class="lnb-item active" onclick="goList()">매장상품</button>
+      <button class="lnb-item">판매현황</button>
+      <button class="lnb-item">비밀번호변경</button>
+    </nav>
+    <button class="lnb-exit" onclick="logout()">로그아웃</button>
+  </aside>
+
+  <!-- 메인영역 -->
+  <div class="admin-main">
+    <header class="admin-header">
+      <div class="path">관리자모드 > 매장상품</div>
+      <div class="shop-info">신림동 얼음왕국1호점 / POS-01</div>
+    </header>
+
+    <div class="filter-toggle">조회 조건 닫기</div>
+
+    <!-- 조회 조건 -->
+    <section class="filter-bar">
+      <!-- 1줄: 상품명 + 바코드 -->
+      <div class="filter-row">
+        <div class="filter-field">
+          <label class="filter-label">상품명</label>
+          <input type="text" placeholder="상품명 입력" class="search-input">
+        </div>
+        <div class="filter-field">
+          <label class="filter-label">바코드</label>
+          <input type="text" placeholder="바코드 입력" class="search-input">
+        </div>
+      </div>
+
+      <!-- 2줄: 등록일자 기간 -->
+      <div class="filter-row">
+        <div class="filter-field">
+          <label class="filter-label">등록일자</label>
+          <div class="date-range">
+            <input type="date" class="search-input date-input">
+            <span class="date-sep">~</span>
+            <input type="date" class="search-input date-input">
+          </div>
+        </div>
+
+        <!-- 버튼 그룹 -->
+        <div class="filter-actions">
+          <button class="filter-btn">검색</button>
+          <button class="reset-btn">초기화</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 카드 리스트 -->
+    <section class="grid-list">
+      <div class="product-card" data-barcode="123456789">
+        <div class="p-name">메로나</div>
+        <div class="p-barcode">바코드: 123456789</div>
+        <div class="p-price">
+          <span class="original">3,000원</span>
+          <span class="discount">2,500원</span>
+        </div>
+        <div class="p-stock normal">재고: 15</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" checked class="recommend-toggle" data-barcode="123456789">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="product-card" data-barcode="987654321">
+        <div class="p-name">바밤바</div>
+        <div class="p-barcode">바코드: 987654321</div>
+        <div class="p-price">
+          <span class="single">1,900원</span>
+        </div>
+        <div class="p-stock warning">재고: 3</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="987654321">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="product-card" data-barcode="12345678">
+        <div class="p-name">테스트</div>
+        <div class="p-barcode">바코드: 12345678</div>
+        <div class="p-price">
+          <span class="single">2,500원</span>
+        </div>
+        <div class="p-stock danger">재고: 0</div>
+        <div class="p-toggle">
+          <label class="toggle-label">선택상품</label>
+          <label class="switch">
+            <input type="checkbox" class="recommend-toggle" data-barcode="12345678">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 하단 버튼 -->
+    <footer class="footer">
+      <button class="register-btn">등록하기</button>
+    </footer>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    initEvent();
+
+    if(window.matchMedia("(orientation: portrait)").matches){
+      $('.filter-bar').removeClass('collapsed');
+      $('.filter-toggle').text('조회 조건 닫기');
+    }
+  });
+
+  function initEvent() {
+    $(document).on('click', '.filter-toggle', function(){
+      $('.filter-bar').toggleClass('collapsed');
+      $(this).toggleClass('collapsed');
+
+      if($('.filter-bar').hasClass('collapsed')){
+        $(this).text('조회 조건 열기');
+      } else {
+        $(this).text('조회 조건 닫기');
+      }
+    });
+
+    window.addEventListener('orientationchange', function(){
+      if(window.matchMedia("(orientation: portrait)").matches){
+        $('.filter-bar').removeClass('collapsed');    // ✅ 세로모드도 항상 열림
+        $('.filter-toggle').text('조회 조건 닫기').show();
+      } else {
+        $('.filter-bar').removeClass('collapsed');
+        $('.filter-toggle').hide();
+      }
+    });
+  }
+
+  $(document).on('click', '.product-card', function(e) {
+    if ($(e.target).is('.recommend-toggle, .slider, .switch, input, label')) {
+      return;
+    }
+    const id = $(this).data('id');
+    goDetail();
+  });
+
+  $(document).on('change', '.recommend-toggle', function(e) {
+    e.stopPropagation();
+  });
+
+  function goDetail() {
+    window.location.href = './detail.html';
+  }
+
+  function goList() {
+    window.location.href = './list.html';
+  }
+
+  function logout() {
+    window.location.href = '../k-main.html';
+  }
+</script>
+</body>
+</html>

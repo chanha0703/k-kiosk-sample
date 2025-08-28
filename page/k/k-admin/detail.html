@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>k-admin-detail</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="./detail.css">
+  <link rel="stylesheet" href="./admin_LNB.css">
+</head>
+<body>
+<div class="admin-container">
+
+  <!-- LNB -->
+  <aside class="lnb">
+    <div class="lnb-logo">관리자모드</div>
+    <nav class="lnb-menu">
+      <button class="lnb-item">매장정보</button>
+      <button class="lnb-item active" onclick="goList()">매장상품</button>
+      <button class="lnb-item">판매현황</button>
+      <button class="lnb-item">비밀번호변경</button>
+    </nav>
+    <button class="lnb-exit" onclick="logout()">로그아웃</button>
+  </aside>
+
+  <!-- 메인 -->
+  <div class="admin-main">
+
+    <!-- 헤더 -->
+    <header class="admin-header">
+      <div class="path">관리자모드 > 매장상품 > 상세</div>
+      <div class="shop-info">신림동 얼음왕국1호점 / POS-01</div>
+    </header>
+
+    <!-- 바코드 / 상품명 입력 -->
+    <div id="btnSearchArea" class="filter-toggle">조회 조건 닫기</div>
+
+    <section class="barcode-section">
+      <div class="barcode-row">
+        <input type="text" class="form-input" placeholder="상품명 입력">
+        <input type="text" class="form-input" placeholder="바코드 입력">
+        <button class="btn scan">바코드 찍기</button>
+        <button class="btn search">조회</button>
+      </div>
+    </section>
+
+    <!-- 본사상품 -->
+    <div id="btnHqArea" class="filter-toggle">본사 상품 닫기</div>
+
+    <section class="detail-section hq-section">
+      <div class="section-header">
+        <h3 class="section-title">본사상품</h3>
+        <button class="btn get-btn">가져오기</button>
+      </div>
+      <div class="form-grid-hq">
+        <div class="form-field">
+          <label class="form-label">대분류</label>
+          <input type="text" class="form-input" readonly value="아이스크림">
+        </div>
+        <div class="form-field">
+          <label class="form-label">중분류</label>
+          <input type="text" class="form-input" readonly value="바형">
+        </div>
+        <div class="form-field">
+          <label class="form-label">소분류</label>
+          <input type="text" class="form-input" readonly value="밀크">
+        </div>
+        <div class="form-field">
+          <label class="form-label">바코드</label>
+          <input type="text" class="form-input" readonly value="123456789">
+        </div>
+        <div class="form-field">
+          <label class="form-label">상품명</label>
+          <input type="text" class="form-input" readonly value="메로나">
+        </div>
+        <div class="form-field">
+          <label class="form-label">판매가</label>
+          <input type="text" class="form-input" readonly value="3,000원">
+        </div>
+      </div>
+    </section>
+
+    <!-- 매장상품 -->
+    <section class="detail-section shop-section">
+      <div class="section-header">
+        <h3 class="section-title">매장상품</h3>
+        <button class="btn get-btn">초기화</button>
+      </div>
+      <div class="form-grid-shop">
+
+        <div class="form-field">
+          <label class="form-label">대분류</label>
+          <div class="select-box">
+            <select class="form-select">
+              <option value="">선택</option>
+              <option value="아이스크림">아이스크림</option>
+              <option value="음료">음료</option>
+              <option value="과자">과자</option>
+            </select>
+            <span class="arrow"></span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">중분류</label>
+          <div class="select-box">
+            <select class="form-select">
+              <option value="">선택</option>
+              <option value="바형">바형</option>
+              <option value="콘형">콘형</option>
+              <option value="컵형">컵형</option>
+            </select>
+            <span class="arrow"></span>
+          </div>
+        </div>
+
+        <div class="form-field">
+        <label class="form-label">소분류</label>
+          <div class="select-box">
+            <select class="form-select">
+              <option value="">선택</option>
+              <option value="밀크">밀크</option>
+              <option value="초코">초코</option>
+              <option value="과일">과일</option>
+            </select>
+            <span class="arrow"></span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">바코드</label>
+          <input type="text" class="form-input">
+        </div>
+        <div class="form-field">
+          <label class="form-label">상품명</label>
+          <input type="text" class="form-input">
+        </div>
+        <div class="form-field">
+          <label class="form-label">판매가</label>
+          <input type="number" class="form-input">
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">입고가</label>
+          <input type="number" class="form-input">
+        </div>
+        <div class="form-field">
+          <label class="form-label">할인가</label>
+          <input type="number" class="form-input">
+        </div>
+        <div class="form-field">
+          <label class="form-label">현재고</label>
+          <input type="number" class="form-input">
+        </div>
+
+        <div class="form-field toggle-field">
+          <label class="form-label">1+1 여부</label>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="form-field toggle-field">
+          <label class="form-label">선택상품 여부</label>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 버튼 영역 -->
+    <footer class="detail-footer">
+      <div class="left-actions">
+        <button class="btn back" onclick="goList()">돌아가기</button>
+      </div>
+      <div class="right-actions">
+        <button class="btn delete">삭제</button>
+        <button class="btn save">저장</button>
+      </div>
+    </footer>
+
+
+  </div>
+</div>
+<script>
+  function goList() {
+    window.location.href = './list.html';
+  }
+
+  $(document).ready(function() {
+    initEvent();
+
+    if(window.matchMedia("(orientation: portrait)").matches){
+      $('.barcode-section').removeClass('collapsed');
+      $('.hq-section').removeClass('collapsed');
+      $("#btnSearchArea").text('조회 조건 닫기');
+      $("#btnHqArea").text('본사 상품 닫기');
+    }
+  });
+
+  function initEvent() {
+    $(document).on('click', '#btnSearchArea', function(){
+      $('.barcode-section').toggleClass('collapsed');
+      $(this).toggleClass('collapsed');
+
+      if($('.barcode-section').hasClass('collapsed')){
+        $(this).text('조회 조건 열기');
+      } else {
+        $(this).text('조회 조건 닫기');
+      }
+    });
+
+    $(document).on('click', '#btnHqArea', function(){
+      $('.hq-section').toggleClass('collapsed');
+      $(this).toggleClass('collapsed');
+
+      if($('.hq-section').hasClass('collapsed')){
+        $(this).text('본사 상품 열기');
+      } else {
+        $(this).text('본사 상품 닫기');
+      }
+    });
+
+    function handleOrientation(){
+      if(window.matchMedia("(orientation: landscape)").matches){
+        $('.barcode-section, .hq-section').removeClass('collapsed');
+        $('#btnSearchArea, #btnHqArea').hide();
+      } else {
+        $('#btnSearchArea').show().removeClass('collapsed').text('조회 조건 닫기');
+        $('#btnHqArea').show().removeClass('collapsed').text('본사 상품 닫기');
+      }
+    }
+
+    handleOrientation();
+    $(window).on('orientationchange resize', handleOrientation);
+  }
+
+  function logout() {
+    window.location.href = '../k-main.html';
+  }
+</script>
+</body>
+</html>

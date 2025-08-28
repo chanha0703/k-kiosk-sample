@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>k-main</title>
+
+  <!-- ✅ jQuery 추가 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <link rel="stylesheet" href="./k-main-style.css">
+  <link rel="stylesheet" href="./k-main-modal.css">
+  <script
+      src="../../../../../../../../../무인키오스크/0.3.개발/연동문서/카드리더기/KIS 카드결제에이전트/KIS-AGENT샘플_250520/05. WebSocket버전/websocketSample.js"></script>
+
+</head>
+<body>
+<div class="kiosk-container">
+
+  <!-- 헤더 -->
+  <header class="header">
+    <h1 class="title">상품의 바코드를 스캔하면 아래 목록에 자동으로 담겨요.<br>수량을 조정하거나 필요없는 상품은 언제든지 삭제할 수 있어요 😊</h1>
+    <button class="help-btn" id="btnHelp">HELP</button>
+  </header>
+
+  <!-- 메인 -->
+  <main class="content">
+    <!-- 상품 리스트 -->
+    <section class="product-list">
+      <div class="product-scroll">
+        <table class="product-table">
+          <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+          </colgroup>
+          <thead>
+          <tr>
+            <th>상품명</th>
+            <th>수량</th>
+            <th>금액</th>
+            <th>삭제</th>
+          </tr>
+          </thead>
+          <tbody id="productList">
+          <tr>
+            <td>
+              메로나
+              <div class="price-row">
+                <span class="product-price">3,000원</span>
+                <span class="discount">2,500원</span>
+              </div>
+            </td>
+            <td>
+              <div class="qty-control">
+                <button class="qty-btn">−</button>
+                <span class="qty-display">2</span>
+                <button class="qty-btn">+</button>
+              </div>
+            </td>
+            <td><strong>5,000원</strong></td>
+            <td class="delete-cell">
+              <div class="delete-wrapper">
+                <button class="delete-btn">
+                  <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5c-.1.8-.8 1.5-1.6 1.5H8.1c-.8 0-1.5-.7-1.6-1.5L5 9zm5 2v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              바밤바
+              <div class="price-row">
+                <span class="single-price">1,900원</span>
+              </div>
+            </td>
+            <td>
+              <div class="qty-control">
+                <button class="qty-btn">−</button>
+                <span class="qty-display">1</span>
+                <button class="qty-btn">+</button>
+              </div>
+            </td>
+            <td><strong>1,900원</strong></td>
+            <td class="delete-cell">
+              <div class="delete-wrapper">
+                <button class="delete-btn">
+                  <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5c-.1.8-.8 1.5-1.6 1.5H8.1c-.8 0-1.5-.7-1.6-1.5L5 9zm5 2v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 추천상품 + 카메라 묶는 래퍼 -->
+    <div class="recommend-camera-wrap">
+      <div class="recommend-sidebar">
+        <div class="rec-card"><span class="rec-name">봉투</span><span class="rec-price">500원</span></div>
+        <div class="rec-card"><span class="rec-name">보냉팩</span><span class="rec-price">1,000원</span></div>
+        <div class="rec-card"><span class="rec-name">연필</span><span class="rec-price">300원</span></div>
+        <div class="rec-card"><span class="rec-name">쿠폰</span><span class="rec-price">무료</span></div>
+        <div class="rec-card" onclick="btnMoreClick();"><span class="rec-name">더보기</span></div>
+      </div>
+
+      <div class="camera-area">카메라 화면<br/>(관리자모드)</div>
+    </div>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <button class="cancel-btn">취소</button>
+    <div class="footer-center">
+      <div class="selected-items">선택상품 <span class="highlight">3</span>개</div>
+      <div class="check-text">결제전 수량과 금액을 확인해주세요</div>
+      <div class="timeout-text">30초동안 조작이 없으면 초기 화면으로 돌아갑니다.</div>
+    </div>
+    <button class="pay-btn" id="btnPay">
+      <span class="pay-amount">6,900원</span>
+      <span class="pay-text">결제하기</span>
+    </button>
+  </footer>
+
+  <!-- ✅ 더보기 모달(S) -->
+  <div id="recModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>상품 선택</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- 왼쪽: 상품 그리드 -->
+        <div class="modal-left">
+          <div class="rec-grid" id="recGrid">
+            <div class="rec-item">봉투<span class="price">500원</span></div>
+            <div class="rec-item">보냉팩<span class="price">1,000원</span></div>
+            <div class="rec-item">연필<span class="price">400원</span></div>
+            <div class="rec-item">지우개<span class="price">300원</span></div>
+            <div class="rec-item">커피<span class="price">800원</span></div>
+            <div class="rec-item">분필<span class="price">200원</span></div>
+            <div class="rec-item">색종이<span class="price">700원</span></div>
+          </div>
+        </div>
+
+        <!-- 오른쪽: 선택된 상품 -->
+        <div class="modal-right">
+          <div class="selected-header">
+            <div>선택상품 <span class="count">3</span>개</div>
+            <div class="selected-total">총 <span class="amount">2,000</span>원</div>
+          </div>
+          <div class="selected-list" id="selectedList">
+            <div class="selected-item">
+              <span class="name">봉투</span>
+              <div class="qty-control">
+                <button class="qty-btn">−</button>
+                <span class="qty-display">2</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <span class="price">1,000원</span>
+              <button class="delete-btn">
+                <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5c-.1.8-.8 1.5-1.6 1.5H8.1c-.8 0-1.5-.7-1.6-1.5L5 9zm5 2v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg>
+              </button>
+            </div>
+            <div class="selected-item">
+              <span class="name">보냉팩</span>
+              <div class="qty-control">
+                <button class="qty-btn">−</button>
+                <span class="qty-display">1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <span class="price">1,000원</span>
+              <button class="delete-btn">
+                <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5c-.1.8-.8 1.5-1.6 1.5H8.1c-.8 0-1.5-.7-1.6-1.5L5 9zm5 2v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg>
+              </button>
+            </div>
+          </div>
+          <button class="select-btn">선택하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ✅ 더보기 모달(E) -->
+
+  <!-- ✅ 결제하기 모달(S) -->
+  <div class="pay-modal" style="display: none;">
+    <div class="pay-modal-content">
+
+      <!-- 결제 요약 헤더 -->
+      <div class="pay-header">
+        <div class="pay-header-bar"></div>
+        <h2 class="pay-title">결제 요약</h2>
+        <div class="pay-header-bar"></div>
+      </div>
+
+      <div class="pay-list">
+        <!-- 헤더도 아이템처럼 grid로 -->
+        <div class="pay-item pay-item-header">
+          <span class="item-name">상품명</span>
+          <span class="item-unit">단가</span>
+          <span class="item-qty">수량</span>
+          <span class="item-total">금액</span>
+        </div>
+
+        <div class="pay-item">
+          <span class="item-name">메로나</span>
+          <span class="item-unit">1,500원</span>
+          <span class="item-qty">2</span>
+          <span class="item-total">3,000원</span>
+        </div>
+
+        <div class="pay-item">
+          <span class="item-name">바밤바</span>
+          <span class="item-unit">200,000원</span>
+          <span class="item-qty">66</span>
+          <span class="item-total">200,000원</span>
+        </div>
+      </div>
+
+      <!-- 총계 -->
+      <div class="pay-total">
+        <div class="total-row">
+          <span>총 수량</span><strong>3개</strong>
+        </div>
+        <div class="total-row total-amount">
+          <span>총 금액</span><strong>5,000원</strong>
+        </div>
+      </div>
+
+      <!-- 결제 수단 -->
+      <div class="pay-methods">
+        <button class="pay-action-btn cash">현금 결제</button>
+        <button class="pay-action-btn card">카드 결제</button>
+        <button class="pay-action-btn easy">간편 결제</button>
+      </div>
+
+    </div>
+  </div>
+  <!-- ✅ 결제하기 모달(E) -->
+
+
+</div>
+
+<script>
+
+  $(document).ready(() => {
+    initEvents();
+  });
+
+  /* === 이벤트 초기화 === */
+  function initEvents() {
+
+    // 모달 닫기 (닫기 버튼)
+    $(document).on('click', '.close-modal', () => closeModal('#recModal'));
+
+    // 모달 외부 클릭 시 닫기
+    $(window).on('click', (e) => {
+      if ($(e.target).is('.modal-overlay, .pay-modal')) {
+        closeModal('#recModal');
+        closeModal('.pay-modal');
+      }
+    });
+
+    // 도움 버튼 → 전체 아이템 추가
+    $('#btnHelp').on('click', addAllItem);
+
+    // 결제 버튼 → 결제 모달 열기
+    $('#btnPay').on('click', () => openModal('.pay-modal'));
+
+    $('.camera-area').on('click', () => {location.href = './k-admin/list.html';});
+  }
+
+  /* === 모달 제어 === */
+  function openModal(selector) {
+    $(selector).fadeIn(200);
+  }
+
+  function closeModal(selector) {
+    $(selector).fadeOut(200);
+  }
+
+  /* === 상품 템플릿 === */
+  function getProductRow() {
+    return `
+    <tr>
+      <td>
+        바밤바
+        <div class="price-row">
+          <span class="single-price">1,900원</span>
+        </div>
+      </td>
+      <td>
+        <div class="qty-control">
+          <button class="qty-btn">−</button>
+          <span class="qty-display">1</span>
+          <button class="qty-btn">+</button>
+        </div>
+      </td>
+      <td><strong>1,900원</strong></td>
+      <td class="delete-cell">
+        <div class="delete-wrapper">
+          <button class="delete-btn">
+            <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5c-.1.8-.8 1.5-1.6 1.5H8.1c-.8 0-1.5-.7-1.6-1.5L5 9zm5 2v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `;
+  }
+
+  function getRecItem() {
+    return `<div class="rec-item">새로운 상품<span class="price">1,200원</span></div>`;
+  }
+
+  function getSelectedItem() {
+    return `
+    <div class="selected-item">
+      <span class="name">보냉팩</span>
+      <div class="qty-control">
+        <button class="qty-btn">−</button>
+        <span class="qty-display">1</span>
+        <button class="qty-btn">+</button>
+      </div>
+      <span class="price">1,000원</span>
+      <button class="delete-btn">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5c-.1.8-.8 1.5-1.6 1.5H8.1c-.8 0-1.5-.7-1.6-1.5L5 9zm5 2v8h2v-8h-2zm4 0v8h2v-8h-2z"/></svg>
+      </button>
+    </div>
+  `;
+  }
+
+  /* === 아이템 추가 함수 === */
+  function addProductList() {
+    $('#productList').append(getProductRow());
+  }
+
+  function addRecItem() {
+    $('#recGrid').append(getRecItem());
+  }
+
+  function addSelectedItem() {
+    $('#selectedList').append(getSelectedItem());
+  }
+
+  /* === 전체 추가 === */
+  function addAllItem() {
+    addProductList();
+    addRecItem();
+    addSelectedItem();
+  }
+
+  /* === 외부에서 호출 === */
+  function btnMoreClick() {
+    $('#recModal').css('display', 'flex').hide().fadeIn(200);
+  }
+
+</script>
+</body>
+</html>

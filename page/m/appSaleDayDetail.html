@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>일별매출상세- APP</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <link rel="stylesheet" href="./appHeader.css">
+  <link rel="stylesheet" href="./appSaleDayDetail.css">
+  <link rel="stylesheet" href="./appFooter.css">
+</head>
+<body>
+<div class="app-container">
+
+  <!-- Header v2 -->
+  <header class="header v2">
+    <div class="header-left back-btn" onclick="history.back()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M15 18l-6-6 6-6"/>
+      </svg>
+    </div>
+    <div class="header-center store-select">
+      <span class="store-name">신림동 얼음왕국1호점</span>
+      <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M6 9l6 6 6-6"/>
+      </svg>
+    </div>
+    <div class="header-right notification">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 17h5l-1.4-1.4A2 2 0 0118 14V11a6 6 0 10-12 0v3a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+      </svg>
+      <span class="badge">2</span>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="fixed-header">
+      <!-- 날짜 선택 -->
+      <div class="date-picker-row">
+        <input type="date" class="date-input" value="2025-08-01">
+        <button class="btn-search">조회</button>
+      </div>
+
+      <!-- 탭 메뉴 (가로 스크롤) -->
+      <div class="sales-tab-scroll">
+        <div class="sales-tab active" data-tab="summary">매출내역</div>
+        <div class="sales-tab" data-tab="detail">매출상세</div>
+        <div class="sales-tab" data-tab="product">상품별</div>
+        <div class="sales-tab" data-tab="category">분류별</div>
+        <div class="sales-tab" data-tab="time">시간대별</div>
+        <div class="sales-tab" data-tab="cancel">카드/취소내역</div>
+      </div>
+    </div>
+
+    <!-- 내용 -->
+    <div class="sales-content" id="sales-content">
+      <!-- 여기 내부는 탭 클릭 시 바뀜 -->
+    </div>
+  </main>
+
+  <!-- Tabs -->
+  <nav class="tabs">
+    <!-- 매출 -->
+    <div class="tab active" onclick="location.href='appSaleGate.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M4 18h3V8H4v10zm6 0h3V4h-3v14zm6 0h3v-6h-3v6z"/>
+      </svg>
+      <span>매출</span>
+    </div>
+
+    <!-- 매장관리 -->
+    <div class="tab" onclick="location.href='appStoreGate.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M9 22V12h6v10"/>
+      </svg>
+      <span>매장관리</span>
+    </div>
+
+    <!-- 홈 -->
+    <div class="tab" onclick="location.href='appMain.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M3 9.75l9-7.5 9 7.5V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21V9.75z"/>
+      </svg>
+      <span>홈</span>
+    </div>
+
+    <!-- 공지사항 -->
+    <div class="tab">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M3 4h18v14H3z"/>
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M8 8h8M8 12h6"/>
+      </svg>
+      <span>공지사항</span>
+    </div>
+
+    <!-- 설정 -->
+    <div class="tab">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M19.14 12.936c.043-.303.07-.614.07-.936s-.027-.633-.08-.936l2.037-1.593a.48.48 0 00.11-.602l-1.928-3.34a.48.48 0 00-.57-.22l-2.4.96a7.55 7.55 0 00-1.617-.936l-.36-2.52a.48.48 0 00-.475-.408h-3.856a.48.48 0 00-.474.408l-.36 2.52a7.476 7.476 0 00-1.618.936l-2.4-.96a.48.48 0 00-.57.22L2.72 8.87a.48.48 0 00.11.602l2.037 1.593a7.712 7.712 0 000 1.872L2.83 14.63a.48.48 0 00-.11.602l1.928 3.34a.48.48 0 00.57.22l2.4-.96c.5.39 1.05.714 1.618.936l.36 2.52c.035.24.24.408.474.408h3.856c.234 0 .44-.168.475-.408l.36-2.52a7.55 7.55 0 001.617-.936l2.4.96c.205.082.438.003.57-.22l1.928-3.34a.48.48 0 00-.11-.602l-2.037-1.593zM12 15.6a3.6 3.6 0 110-7.2 3.6 3.6 0 010 7.2z"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>설정</span>
+    </div>
+  </nav>
+</div>
+<script>
+  $(function() {
+    updateNotification(2);
+
+    // 탭 클릭 이벤트
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    $('#sales-content').html(getSummary());
+
+    $('.sales-tab').on('click', function () {
+      // 탭 active 처리
+      $('.sales-tab').removeClass('active');
+      $(this).addClass('active');
+
+      const selectedTab = $(this).data('tab');
+      const $content = $('#sales-content');
+
+      $content.empty(); // 기존 내용 비우기
+      $content.animate({scrollTop:0},0);
+      // 탭에 따라 내용 전환
+      switch (selectedTab) {
+        case 'summary':
+          $content.html(getSummary());
+          break;
+        case 'detail':
+          $content.html(getDetail());
+          detailEvent();
+          break;
+        case 'product':
+          $content.html(getProduct());
+          break;
+        case 'category':
+          $content.html(getCategory());
+          break;
+        case 'time':
+          $content.html(getTime());
+          break;
+        case 'cancel':
+          $content.html(getCancel());
+          break;
+        default:
+          $content.html('<p>내용 없음</p>');
+      }
+    });
+  });
+
+  function updateNotification(count) {
+    const $badge = $(".notification .badge");
+    if (count > 0) {
+      $badge.text(count).show();
+    } else {
+      $badge.hide();
+    }
+  }
+
+  function getSummary() {
+    return `
+      <div class="summary">
+        <div class="sales-detail-table">
+          <div class="row table-header">
+            <div class="col-left">항목</div>
+            <div class="col-right">건수/금액</div>
+          </div>
+          <div class="row">
+            <div class="col-left">판매건수</div>
+            <div class="col-right">142건</div>
+          </div>
+          <div class="row">
+            <div class="col-left">1+1건수</div>
+            <div class="col-right">34건</div>
+          </div>
+          <div class="row">
+            <div class="col-left">실매출액</div>
+            <div class="col-right">482,000원</div>
+          </div>
+          <div class="row sub">
+            <div class="col-left">카드매출</div>
+            <div class="col-right">411,000원</div>
+          </div>
+          <div class="row sub">
+            <div class="col-left">현금매출</div>
+            <div class="col-right">62,000원</div>
+          </div>
+          <div class="row sub">
+            <div class="col-left">간편매출</div>
+            <div class="col-right">9,000원</div>
+          </div>
+          <div class="row">
+            <div class="col-left">객단가</div>
+            <div class="col-right">2,133원</div>
+          </div>
+          <div class="row">
+            <div class="col-left">반품건수</div>
+            <div class="col-right">0건</div>
+          </div>
+          <div class="row">
+            <div class="col-left">할인금액</div>
+            <div class="col-right">0원</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function getDetail() {
+    return `
+      <div class="detail">
+        <div class="filter-row">
+          <label for="pos-select">POS 선택</label>
+          <div class="select-wrapper">
+            <select id="pos-select">
+              <option value="all">전체</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sales-list">
+          <div class="sales-item">
+            <div class="sales-summary">
+              <div class="summary-grid">
+                <div class="label">POS번호</div>
+                <div class="value">01</div>
+                <div class="label">거래요약</div>
+                <div class="value"><span style="color:#388E3C">정상</span>/카드</div>
+                <div class="label">영수번호</div>
+                <div class="value">20250805000001</div>
+                <div class="label">거래금액</div>
+                <div class="value">1,300,000</div>
+                <div class="label">거래시간</div>
+                <div class="value">08:01:00</div>
+              </div>
+              <div class="summary-toggle-icon arrow-down"></div>
+            </div>
+            <div class="sales-detail" style="display: none">
+              <div class="action-buttons">
+                <button class="btn gray">영수증 출력</button>
+                <button class="btn blue">동영상 재생</button>
+              </div>
+              <div class="product-header">
+                <span>상품명</span>
+                <span>1+1 여부</span>
+                <span>수량</span>
+                <span>판매금액</span>
+              </div>
+              <div class="product-row">
+                <span class="name scrollable left">바나나우유</span>
+                <span class="tag">1+1 없음</span>
+                <span class="qty">1</span>
+                <span class="total">125,000</span>
+              </div>
+              <div class="product-row">
+                <span class="name scrollable">캔커피</span>
+                <span class="tag tag-yes">1+1 적용</span>
+                <span class="qty">23</span>
+                <span class="total">7,123,456</span>
+              </div>
+            </div>
+          </div>
+          <div class="sales-item">
+            <div class="sales-summary">
+              <div class="summary-grid">
+                <div class="label">POS번호</div>
+                <div class="value">01</div>
+                <div class="label">거래요약</div>
+                <div class="value"><span style="color: #D32F2F">취소</span>/카드</div>
+                <div class="label">영수번호</div>
+                <div class="value">20250805000001</div>
+                <div class="label">거래금액</div>
+                <div class="value">1,300,000</div>
+                <div class="label">거래시간</div>
+                <div class="value">08:01:00</div>
+              </div>
+              <div class="summary-toggle-icon arrow-down"></div>
+            </div>
+            <div class="sales-detail" style="display: none">
+              <div class="action-buttons">
+                <button class="btn gray">영수증 출력</button>
+                <button class="btn blue">동영상 재생</button>
+              </div>
+              <div class="product-header">
+                <span>상품명</span>
+                <span>1+1 여부</span>
+                <span>수량</span>
+                <span>판매금액</span>
+              </div>
+              <div class="product-row">
+                <span class="name scrollable left">바나나우유</span>
+                <span class="tag">1+1 없음</span>
+                <span class="qty">1</span>
+                <span class="total">125,000</span>
+              </div>
+              <div class="product-row">
+                <span class="name scrollable">캔커피</span>
+                <span class="tag tag-yes">1+1 적용</span>
+                <span class="qty">23</span>
+                <span class="total">7,123,456</span>
+              </div>
+            </div>
+          </div>
+          <div class="sales-item">
+            <div class="sales-summary">
+              <div class="summary-grid">
+                <div class="label">POS번호</div>
+                <div class="value">01</div>
+                <div class="label">거래요약</div>
+                <div class="value"><span style="color:#388E3C">정상</span>/간편</div>
+                <div class="label">영수번호</div>
+                <div class="value">20250805000001</div>
+                <div class="label">거래금액</div>
+                <div class="value">1,300,000</div>
+                <div class="label">거래시간</div>
+                <div class="value">08:01:00</div>
+              </div>
+              <div class="summary-toggle-icon arrow-down"></div>
+            </div>
+            <div class="sales-detail" style="display: none">
+              <div class="action-buttons">
+                <button class="btn gray">영수증 출력</button>
+                <button class="btn blue">동영상 재생</button>
+              </div>
+              <div class="product-header">
+                <span>상품명</span>
+                <span>1+1 여부</span>
+                <span>수량</span>
+                <span>판매금액</span>
+              </div>
+              <div class="product-row">
+                <span class="name scrollable left">바나나우유</span>
+                <span class="tag">1+1 없음</span>
+                <span class="qty">1</span>
+                <span class="total">125,000</span>
+              </div>
+              <div class="product-row">
+                <span class="name scrollable">캔커피</span>
+                <span class="tag tag-yes">1+1 적용</span>
+                <span class="qty">23</span>
+                <span class="total">7,123,456</span>
+              </div>
+            </div>
+          </div>
+          <div class="sales-item">
+            <div class="sales-summary">
+              <div class="summary-grid">
+                <div class="label">POS번호</div>
+                <div class="value">01</div>
+                <div class="label">거래요약</div>
+                <div class="value"><span style="color:#388E3C">정상</span>/현금</div>
+                <div class="label">영수번호</div>
+                <div class="value">20250805000001</div>
+                <div class="label">거래금액</div>
+                <div class="value">1,300,000</div>
+                <div class="label">거래시간</div>
+                <div class="value">08:01:00</div>
+              </div>
+              <div class="summary-toggle-icon arrow-down"></div>
+            </div>
+            <div class="sales-detail" style="display: none">
+              <div class="action-buttons">
+                <button class="btn gray">영수증 출력</button>
+                <button class="btn blue">동영상 재생</button>
+              </div>
+              <div class="product-header">
+                <span>상품명</span>
+                <span>1+1 여부</span>
+                <span>수량</span>
+                <span>판매금액</span>
+              </div>
+              <div class="product-row">
+                <span class="name scrollable left">바나나우유</span>
+                <span class="tag">1+1 없음</span>
+                <span class="qty">1</span>
+                <span class="total">125,000</span>
+              </div>
+              <div class="product-row">
+                <span class="name scrollable">캔커피</span>
+                <span class="tag tag-yes">1+1 적용</span>
+                <span class="qty">23</span>
+                <span class="total">7,123,456</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    `;
+  }
+
+  function detailEvent() {
+    $('.sales-summary').on('click', function () {
+      const $summary = $(this);
+      const $item = $summary.closest('.sales-item');
+      const $detail = $item.find('.sales-detail');
+      const $icon = $summary.find('.summary-toggle-icon');
+
+      $detail.slideToggle(200);
+      $icon.toggleClass('arrow-up arrow-down');
+    });
+  }
+
+  function getProduct() {
+    return `
+      <div class="product">
+        <div class="product-search-section">
+          <label for="product-name">상품명</label>
+          <div class="search-input-wrap">
+            <input type="text" id="product-name" placeholder="상품명을 입력하세요">
+            <div class="search-buttons">
+              <button class="btn search">검색</button>
+              <button class="btn reset">초기화</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-table-modern">
+          <div class="product-header-row">
+            <div>상품명</div>
+            <div>수량</div>
+            <div class="right">판매금액</div>
+            <div class="right">비율</div>
+          </div>
+
+          <div class="product-body">
+            <div class="product-row">
+              <div>바나나우유</div>
+              <div>10</div>
+              <div class="right">15,000</div>
+              <div class="right">25%</div>
+            </div>
+            <div class="product-row">
+              <div>캔커피</div>
+              <div>5</div>
+              <div class="right">7,500</div>
+              <div class="right">12%</div>
+            </div>
+            <div class="product-row">
+              <div>캔커피</div>
+              <div>5</div>
+              <div class="right">7,500</div>
+              <div class="right">12%</div>
+            </div>
+            <div class="product-row">
+              <div>캔커피</div>
+              <div>5</div>
+              <div class="right">7,500</div>
+              <div class="right">12%</div>
+            </div>
+            <div class="product-row">
+              <div>캔커피</div>
+              <div>5</div>
+              <div class="right">7,500</div>
+              <div class="right">12%</div>
+            </div>
+            <div class="product-row">
+              <div>캔커피</div>
+              <div>5</div>
+              <div class="right">7,500</div>
+              <div class="right">12%</div>
+            </div>
+          </div>
+
+          <div class="product-footer-row">
+            <div>합계</div>
+            <div>15</div>
+            <div class="right">22,500</div>
+            <div class="right">37%</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function getCategory() {
+    return `
+      <div class="category">
+        <div class="filter-row">
+          <label for="pos-select">분류선택</label>
+          <div class="select-wrapper">
+            <select id="pos-select">
+              <option value="all">전체</option>
+              <option value="01">과자직구매</option>
+              <option value="02">음료</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="product-table-modern">
+          <div class="product-header-row">
+            <div>분류명</div>
+            <div>수량</div>
+            <div class="right">판매금액</div>
+            <div class="right">비율</div>
+          </div>
+
+          <div class="product-body">
+            <div class="product-row">
+              <div>과자직구매</div>
+              <div>10</div>
+              <div class="right">15,000</div>
+              <div class="right">25%</div>
+            </div>
+            <div class="product-row">
+              <div>음료</div>
+              <div>5</div>
+              <div class="right">15,000</div>
+              <div class="right">25%</div>
+            </div>
+            <div class="product-row">
+              <div>기타1</div>
+              <div>5</div>
+              <div class="right">15,000</div>
+              <div class="right">25%</div>
+            </div>
+            <div class="product-row">
+              <div>기타2</div>
+              <div>7</div>
+              <div class="right">15,000</div>
+              <div class="right">25%</div>
+            </div>
+            <div class="product-row">
+              <div>기타3</div>
+              <div>0</div>
+              <div class="right">0</div>
+              <div class="right">0%</div>
+            </div>
+          </div>
+
+          <div class="product-footer-row">
+            <div>합계</div>
+            <div>27</div>
+            <div class="right">60,000</div>
+            <div class="right">100%</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function getTime() {
+    return `
+      <div class="time">
+
+        <div class="product-table-modern">
+          <div class="product-header-row">
+            <div>시간대</div>
+            <div>수량</div>
+            <div class="right">판매금액</div>
+          </div>
+
+          <div class="product-body">
+            <div class="product-row">
+              <div>00:00 ~ 00:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>01:00 ~ 01:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>02:00 ~ 02:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>03:00 ~ 03:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>04:00 ~ 04:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>05:00 ~ 05:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>06:00 ~ 06:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>07:00 ~ 07:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>08:00 ~ 08:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>09:00 ~ 09:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>10:00 ~ 10:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>11:00 ~ 11:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>12:00 ~ 12:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>13:00 ~ 13:59</div>
+              <div>1</div>
+              <div class="right">300</div>
+            </div>
+            <div class="product-row">
+              <div>14:00 ~ 14:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>15:00 ~ 15:59</div>
+              <div>3</div>
+              <div class="right">2100</div>
+            </div>
+            <div class="product-row">
+              <div>16:00 ~ 16:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>17:00 ~ 17:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>18:00 ~ 18:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>19:00 ~ 19:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>20:00 ~ 20:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>21:00 ~ 21:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>22:00 ~ 22:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+            <div class="product-row">
+              <div>23:00 ~ 23:59</div>
+              <div>0</div>
+              <div class="right">0</div>
+            </div>
+          </div>
+
+          <div class="product-footer-row">
+            <div class="center">합계</div>
+            <div>4</div>
+            <div class="right">2,400</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function getCancel() {
+    return `
+      <div class="cancel">
+
+        <div class="sales-list">
+          <div class="sales-item">
+            <div class="sales-summary">
+              <div class="summary-grid">
+                <div class="label">POS번호</div>
+                <div class="value">01</div>
+                <div class="label">거래요약</div>
+                <div class="value"><span style="color:#388E3C">정상</span></div>
+                <div class="label">영수번호</div>
+                <div class="value">20250805000001</div>
+                <div class="label">거래금액</div>
+                <div class="value">1,300,000</div>
+                <div class="label">거래시간</div>
+                <div class="value">08:01:00</div>
+                <div class="label">승인번호</div>
+                <div class="value">12345678</div>
+              </div>
+            </div>
+          </div>
+          <div class="sales-item">
+            <div class="sales-summary">
+              <div class="summary-grid">
+                <div class="label">POS번호</div>
+                <div class="value">01</div>
+                <div class="label">거래요약</div>
+                <div class="value"><span style="color:#388E3C">정상</span></div>
+                <div class="label">영수번호</div>
+                <div class="value">20250805000002</div>
+                <div class="label">거래금액</div>
+                <div class="value">1,300,000</div>
+                <div class="label">거래시간</div>
+                <div class="value">08:02:00</div>
+                <div class="label">승인번호</div>
+                <div class="value">12345678</div>
+              </div>
+            </div>
+          </div>
+          <div class="sales-item">
+            <div class="sales-summary">
+              <div class="summary-grid">
+                <div class="label">POS번호</div>
+                <div class="value">01</div>
+                <div class="label">거래요약</div>
+                <div class="value"><span style="color: #D32F2F">취소</span></div>
+                <div class="label">영수번호</div>
+                <div class="value">20250805000003</div>
+                <div class="label">거래금액</div>
+                <div class="value">1,300,000</div>
+                <div class="label">거래시간</div>
+                <div class="value">08:03:00</div>
+                <div class="label">승인번호</div>
+                <div class="value"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+</script>
+</body>
+</html>

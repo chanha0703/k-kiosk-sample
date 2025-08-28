@@ -1,0 +1,489 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.modal-box {
+    width: 80%;
+    height: 80%;
+    border-radius: 1em;
+    background: #FFF;
+    box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vh 2vw;
+    border-bottom: 0.1vh solid #E0E0E0;
+    background: #FAFAFA;
+}
+
+.modal-header h2 {
+    font-size: 2vw;
+    color: #263238;
+    font-weight: bold;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 2.6vw;
+    color: #555;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-body {
+    flex: 1;
+    display: flex;
+    background: #E0E0E0;
+    overflow: hidden;
+}
+
+.modal-left {
+    flex: 1;
+    background: #FFF;
+    padding: 1.5vh 1.5vw;
+    overflow-y: auto;
+}
+
+.modal-right {
+    flex: 1;
+    background: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 1vw;
+    border-left: 0.1vh solid #DDD;
+    overflow-y: auto;
+}
+
+.rec-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vh;
+}
+
+.rec-item {
+    background: linear-gradient(180deg, #FAFAFA 0%, #F0F0F0 100%);
+    box-shadow: 0 0.3vh 0.8vh rgba(0, 0, 0, 0.08);
+    border-radius: 0.8em;
+    padding: 4vh 1vw;
+    border: 0.1vh solid #DDD;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.1s ease;
+    font-weight: bold;
+    font-size: 1.5vw;
+}
+
+.rec-item .price {
+    font-size: 1.3vw;
+    color: #555;
+    margin-top: 0.5vh;
+}
+
+.selected-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5vw;
+    font-weight: bold;
+    color: #263238;
+    margin-bottom: 1vh;
+}
+
+.selected-header .count {
+    color: #263238;
+}
+
+.selected-total .amount {
+    color: #263238;
+}
+
+.selected-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.selected-item {
+    background: #FFF;
+    border: 0.1vh solid #DDD;
+    border-radius: 0.6em;
+    padding: 1vh;
+    display: grid;
+    grid-template-columns: 30% 30% 20% 15%;
+    align-items: center;
+    gap: 0.5vw;
+    box-shadow: 0 0.3vh 0.6vh rgba(0, 0, 0, 0.05);
+    font-size: 1.4vw;
+    text-align: center;
+}
+
+.selected-item .name {
+    font-weight: bold;
+    color: #263238;
+    text-align: left;
+}
+
+.selected-item .qty-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 0.1vh solid #CCC;
+    border-radius: 0.5vw;
+    background: #FFF;
+    height: 80%;
+    width: 80%;
+    padding: 0 0.3vw;
+    margin: 0 auto;
+}
+
+.selected-item .qty-btn {
+    border: none;
+    background: none;
+    font-size: 1.4vw;
+    flex: 1;
+    max-width: 30%;
+    height: 100%;
+    cursor: pointer;
+    color: #555;
+}
+
+.selected-item .qty-display {
+    flex: 0 0 auto;
+    max-width: 3vw;
+    min-width: 2vw;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.4vw;
+}
+
+.selected-item .price {
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    font-size: 1.4vw;
+    margin: 0 auto;
+}
+
+.selected-item .delete-btn {
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+
+    background: #F7F7F7;
+    border-radius: 0.4vw;
+    width: 3vw;
+    height: 3vw;
+    box-shadow: 0 0.2vh 0.6vh rgba(0, 0, 0, 0.06);
+}
+
+.selected-item .delete-btn svg {
+    width: 1.3vw;
+    height: 1.3vw;
+    fill: #C62828;
+}
+
+.select-btn {
+    margin-top: 1vh;
+    background: linear-gradient(180deg, #4CAF50 0%, #43A047 100%);
+    color: #FFF;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0.4vh 1vh rgba(76, 175, 80, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6vw;
+    border-radius: 0.4em;
+    padding: 2vh 1vw;
+}
+
+/* 세로모드(1080x1920) 전용 레이아웃 */
+@media screen and (orientation: portrait) {
+    html, body {
+        flex-direction: column;
+    }
+
+    /* 모달 박스 세로 모드 */
+    .modal-box {
+        width: 90%;
+        height: 85%;
+        border-radius: 1.2em;
+        flex-direction: column;
+    }
+
+    .modal-header {
+        padding: 2vh 3vw;
+    }
+
+    .modal-header h2 {
+        font-size: 3vh;
+    }
+
+    .close-modal {
+        font-size: 4vh;
+    }
+
+    .modal-body {
+        flex-direction: column;
+    }
+
+    .modal-left {
+        flex: unset;
+        width: 100%;
+        padding: 1vh 2vw;
+        height: 40%;
+    }
+
+    .modal-right {
+        flex: unset;
+        width: 100%;
+        padding: 1vh 2vw;
+        height: 60%;
+    }
+
+    /* 추천상품 그리드: 세로형에서는 2열 */
+    .rec-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5vh;
+    }
+
+    .rec-item {
+        font-size: 1.8vh;
+        padding: 1.5vh;
+        border-radius: 1em;
+    }
+
+    .rec-item .price {
+        font-size: 1.5vh;
+        margin-top: 0.8vh;
+    }
+
+    .selected-header {
+        font-size: 1.8vh;
+    }
+
+    /* 선택 아이템 리스트: 세로 비율 조정 */
+    .selected-item {
+        grid-template-columns: 35% 30% 20% 15%;
+        font-size: 2vh;
+        padding: 1.2vh;
+    }
+
+    .selected-item .qty-control {
+        height: 4vh;
+        min-width: 20vw;
+    }
+
+    .selected-item .qty-btn {
+        font-size: 2vh;
+    }
+
+    .selected-item .qty-display {
+        font-size: 1.8vh;
+    }
+
+    .selected-item .price {
+        font-size: 1.8vh;
+    }
+
+    .select-btn {
+        font-size: 2.4vh;
+        padding: 1.2vh;
+        border-radius: 1em;
+        margin-top: 2vh;
+    }
+
+    .selected-item .delete-btn {
+        width: 4vh;
+        height: 4vh;
+    }
+
+    .selected-item .delete-btn svg {
+        width: 2.2vh;
+        height: 2.2vh;
+        fill: #C62828;
+    }
+}
+
+
+
+
+
+
+/* === 모달 배경 === */
+.pay-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+/* === 모달 컨텐츠 === */
+.pay-modal-content {
+    background: #fff;
+    width: 50%;
+    height: 70%;
+    border-radius: 1.2vh;
+    padding: 3vh 3vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    /* ✅ 노란 계열 그림자 */
+    box-shadow: 0 1vh 2vh rgba(255, 213, 79, 0.4);
+}
+
+/* === 신박한 헤더 디자인 === */
+.pay-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+    position: relative;
+}
+
+.pay-header-bar {
+    flex: 1;
+    height: 0.3vh;
+    background: linear-gradient(to right, transparent, #FF5252, transparent);
+    border-radius: 1vh;
+}
+
+.pay-title {
+    font-size: 3vh;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+}
+
+/* === 상품 리스트 === */
+.pay-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    gap: 0.8vh;
+}
+.pay-item {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.5fr 1fr;
+    font-size: 2vh;
+    padding: 1vh 1vw;
+    align-items: center;
+}
+
+/* 헤더 전용 */
+.pay-item-header {
+    font-weight: bold;
+    color: #444;
+    border-bottom: 0.2vh solid #E0E0E0;
+    background: #f5f5f5;
+}
+
+/* 아이템 배경 */
+.pay-item:not(.pay-item-header) {
+    background: #F0F0F0;
+    border-radius: 0.5vh;
+}
+.pay-item:nth-child(even):not(.pay-item-header) {
+    background: #FAFAFA;
+}
+
+.item-name { font-weight: 500; padding-left: 0.5vw;}
+.item-total { text-align: center; font-weight: bold; color: #000; }
+.item-qty { text-align: center; }
+.item-unit { text-align: center; color: #666; }
+
+/* === 총계 === */
+.pay-total {
+    font-size: 2.2vh;
+    font-weight: 600;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    padding: 0 0.5vw;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-row strong {
+    font-size: 2.4vh;
+}
+
+.total-amount strong {
+    font-size: 2.6vh;
+}
+
+/* === 결제 수단 === */
+.pay-methods {
+    display: flex;
+    gap: 2vw;
+    justify-content: space-between;
+}
+
+/* ✅ pay-action-btn (충돌 방지) */
+.pay-action-btn {
+    flex: 1;
+    padding: 2.2vh 0;
+    font-size: 2.2vh;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.8vh;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.pay-action-btn.cash {
+    background: linear-gradient(180deg, #90CAF9 0%, #42A5F5 100%);
+    color: #fff;
+}
+
+.pay-action-btn.card {
+    background: linear-gradient(180deg, #FFF176 0%, #FFD54F 100%);
+    color: #5D4037;
+}
+
+.pay-action-btn.easy {
+    background: linear-gradient(180deg, #A5D6A7 0%, #66BB6A 100%);
+    color: #fff;
+}
+
+.pay-action-btn:active {
+    transform: scale(0.97);
+}
+
+@media screen and (orientation: portrait) {
+    .pay-modal-content {
+        width: 90%;
+    }
+}

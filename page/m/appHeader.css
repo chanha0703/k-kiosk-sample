@@ -1,0 +1,175 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+body {
+    background: #F5F6FA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #222;
+}
+
+/* CONTAINER */
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* ✅ 세로 중앙 */
+    align-items: center;     /* ✅ 가로 중앙 */
+}
+
+
+/* HEADER - 항상 고정 */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
+    border-bottom: 1px solid #eaeaea;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    z-index: 1000;
+}
+/* Header v2 */
+.header.v2 {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
+    border-bottom: 1px solid #eaeaea;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    z-index: 1000;
+}
+
+.header-left svg,
+.header-right svg {
+    width: 24px;
+    height: 24px;
+    stroke: #333;
+}
+
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #222;
+}
+
+.header-center .dropdown-icon {
+    width: 18px;
+    height: 18px;
+    stroke: #444;
+}
+
+/* STORE SELECT */
+.store-select {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+.store-name {
+    font-size: 4vw;
+    font-weight: 600;
+    color: #263238;
+}
+.dropdown-icon {
+    width: 18px;
+    height: 18px;
+    stroke: #444;
+}
+
+/* ICON BTN */
+.icon-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.icon-btn svg {
+    width: 22px;
+    height: 22px;
+    stroke: #444;
+}
+.notification {
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #FF5252;        /* ✅ 빨간색 포인트 */
+    color: #fff;
+    font-size: 2.8vw;
+    font-weight: bold;
+    padding: 1px 5px;
+    border-radius: 12px;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1.2;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.content {
+    padding-top: calc(60px + env(safe-area-inset-top));
+    height: calc(100vh - (60px + env(safe-area-inset-top)) - env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+}
+
+/* Fold / 데스크탑 대응용 */
+@media screen and (min-width: 600px) {
+    .store-name {
+        font-size: 18px;
+    }
+    .month-label {
+        font-size: 18px;
+    }
+    .month-total .label {
+        font-size: 14px;
+    }
+    .month-total .amount {
+        font-size: 16px;
+    }
+    .summary-header {
+        font-size: 18px;
+    }
+    .summary-item, .summary-row {
+        font-size: 15px;
+    }
+    .btn-detail {
+        font-size: 14px;
+    }
+    .badge {
+        font-size: 11px;
+    }
+}

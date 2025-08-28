@@ -1,0 +1,111 @@
+/* === 기본 (가로모드) LNB === */
+.lnb {
+    flex: 0 0 15%;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    border-right: 0.2vh solid #E0E0E0;
+    padding: 2vh 1vw;
+}
+
+.lnb-logo {
+    font-weight: bold;
+    font-size: 1.6vw;
+    color: #333;
+    margin-bottom: 2vh;
+}
+
+.lnb-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.lnb-item {
+    background: #F5F5F5;
+    border: none;
+    padding: 1.2vh;
+    font-size: 1.2vw;
+    text-align: left;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    color: #555;
+}
+
+.lnb-item.active {
+    background: linear-gradient(180deg, #FFE082 0%, #FFD54F 100%);
+    color: #5D4037;
+    font-weight: bold;
+}
+
+.lnb-exit {
+    background: #ffcdcd;
+    border: none;
+    padding: 1.2vh;
+    font-size: 1.1vw;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    color: #000000;
+    font-weight: 600;
+}
+
+/* === 세로모드 LNB === */
+@media screen and (orientation: portrait) {
+    .lnb {
+        flex: 0 0 auto;
+        width: 100%;
+        background: #FFF;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2vh 0 0 0;
+        border-bottom: 0.1vh solid #E0E0E0;
+        border-right: none; /* ✅ 세로모드에서는 우측선 제거 */
+    }
+
+    .lnb-logo {
+        display: none;
+    }
+
+    .lnb-menu {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 1vh 2vw;
+        width: 90%;
+        justify-items: stretch;
+        margin-bottom: 2vh;
+    }
+
+    .lnb-item {
+        background: #eaeaea;
+        border: none;
+        border-radius: 0.8vh;
+        padding: 1.5vh 0;
+        font-size: 1.9vh;
+        font-weight: 600;
+        color: #333;
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .lnb-item.active {
+        background: #FFD54F;
+        color: #222;
+    }
+
+    .lnb-exit {
+        width: 100%;
+        background: #ffcdcd;
+        border: none;
+        color: #263137;
+        font-size: 1.8vh;
+        padding: 1.5vh 0;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        border-top: 0.1vh solid #E0E0E0;
+        border-radius: 0;
+    }
+}

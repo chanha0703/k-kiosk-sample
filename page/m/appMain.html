@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>무인키오스크app</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <link rel="stylesheet" href="./appHeader.css">
+  <link rel="stylesheet" href="./appMain.css">
+  <link rel="stylesheet" href="./appFooter.css">
+</head>
+<body>
+<div class="app-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="store-select">
+      <span class="store-name">신림동 얼음왕국1호점</span>
+      <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M6 9l6 6 6-6"/>
+      </svg>
+    </div>
+    <div class="icon-btn notification">
+      <!-- 알림 아이콘 -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 17h5l-1.4-1.4A2 2 0 0118 14V11a6 6 0 10-12 0v3a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+      </svg>
+      <span class="badge"></span>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="content">
+    <!-- Month Nav -->
+    <div class="month-bar">
+      <div class="month-nav">
+        <button class="month-btn prev">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  d="M14 6l-6 6 6 6"/>
+          </svg>
+        </button>
+        <div class="month-label">2025-08</div>
+        <button class="month-btn next">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  d="M10 6l6 6-6 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="month-total">
+        <span class="label">이번달 매출</span>
+        <span class="amount">24,904,500원</span>
+      </div>
+    </div>
+
+    <!-- Calendar 고정 영역 -->
+    <div class="calendar-wrap">
+      <div class="calendar"></div>
+    </div>
+
+    <!-- Summary -->
+    <div class="day-summary scroll-area">
+      <div class="summary-header">
+        <span class="summary-date">2025-08-25</span>
+        <button class="btn-detail" onclick="location.href='appSaleDayDetail.html'">상세보기</button>
+      </div>
+      <div class="summary-item important">
+        <span class="label">총 매출</span>
+        <span class="value">1,002,000원</span>
+      </div>
+      <div class="summary-item important">
+        <span class="label">총 주문 건수</span>
+        <span class="value">63건</span>
+      </div>
+      <div class="summary-section">
+        <div class="summary-title">결제 수단별 매출</div>
+        <div class="summary-row"><span class="label">카드</span><span class="value">500,000원</span></div>
+        <div class="summary-row"><span class="label">현금</span><span class="value">300,000원</span></div>
+        <div class="summary-row"><span class="label">간편결제</span><span class="value">202,000원</span></div>
+      </div>
+
+      <div class="summary-section">
+        <div class="summary-title">상품 TOP 3</div>
+        <div class="summary-row"><span class="label">메로나</span><span class="value">300,000원</span></div>
+        <div class="summary-row"><span class="label">바밤바</span><span class="value">250,000원</span></div>
+        <div class="summary-row"><span class="label">쿠앤크</span><span class="value">200,000원</span></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Tabs -->
+  <nav class="tabs">
+    <!-- 매출 -->
+    <div class="tab" onclick="location.href='appSaleGate.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M4 18h3V8H4v10zm6 0h3V4h-3v14zm6 0h3v-6h-3v6z"/>
+      </svg>
+      <span>매출</span>
+    </div>
+
+    <!-- 매장관리 -->
+    <div class="tab" onclick="location.href='appStoreGate.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M9 22V12h6v10"/>
+      </svg>
+      <span>매장관리</span>
+    </div>
+
+    <!-- 홈 -->
+    <div class="tab active" onclick="location.href='appMain.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M3 9.75l9-7.5 9 7.5V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21V9.75z"/>
+      </svg>
+      <span>홈</span>
+    </div>
+
+    <!-- 공지사항 -->
+    <div class="tab">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M3 4h18v14H3z"/>
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M8 8h8M8 12h6"/>
+      </svg>
+      <span>공지사항</span>
+    </div>
+
+    <!-- 설정 -->
+    <div class="tab">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M19.14 12.936c.043-.303.07-.614.07-.936s-.027-.633-.08-.936l2.037-1.593a.48.48 0 00.11-.602l-1.928-3.34a.48.48 0 00-.57-.22l-2.4.96a7.55 7.55 0 00-1.617-.936l-.36-2.52a.48.48 0 00-.475-.408h-3.856a.48.48 0 00-.474.408l-.36 2.52a7.476 7.476 0 00-1.618.936l-2.4-.96a.48.48 0 00-.57.22L2.72 8.87a.48.48 0 00.11.602l2.037 1.593a7.712 7.712 0 000 1.872L2.83 14.63a.48.48 0 00-.11.602l1.928 3.34a.48.48 0 00.57.22l2.4-.96c.5.39 1.05.714 1.618.936l.36 2.52c.035.24.24.408.474.408h3.856c.234 0 .44-.168.475-.408l.36-2.52a7.55 7.55 0 001.617-.936l2.4.96c.205.082.438.003.57-.22l1.928-3.34a.48.48 0 00-.11-.602l-2.037-1.593zM12 15.6a3.6 3.6 0 110-7.2 3.6 3.6 0 010 7.2z"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>설정</span>
+    </div>
+  </nav>
+
+</div>
+
+<script>
+  // ✅ 오늘 날짜 기준으로 초기 값 설정
+  const today = new Date();
+  let currentYear = today.getFullYear();
+  let currentMonth = today.getMonth() + 1; // ✅ getMonth()는 0부터 시작하므로 +1
+
+  // ✅ 예시 매출 데이터
+  const salesData = {
+    1: 1250000,
+    2: 9800000,
+    5: 350000,
+    10: 123456789,
+    15: 12000,
+    20: 0,
+    25: 450000,
+    [today.getDate()]: 87654321 // ✅ 오늘 날짜 금액
+  };
+
+  function renderCalendar(year, month) {
+    const $calendar = $(".calendar");
+    $calendar.empty();
+
+    $(".month-label").text(`${year}-${String(month).padStart(2,'0')}`);
+
+    const firstDay = new Date(year, month - 1, 1);
+    const lastDate = new Date(year, month, 0).getDate();
+    const startWeek = firstDay.getDay();
+
+    const headers = ["일","월","화","수","목","금","토"];
+    headers.forEach((d,i)=>{
+      let cls = "";
+      if(i===0) cls = "sunday";
+      if(i===6) cls = "saturday";
+      $calendar.append(`<div class="day-header ${cls}">${d}</div>`);
+    });
+
+    for(let i=0;i<startWeek;i++){
+      $calendar.append(`<div class="day empty"></div>`);
+    }
+
+    for(let day=1; day<=lastDate; day++){
+      const weekDay = new Date(year, month-1, day).getDay();
+      let cls = "day";
+      if(weekDay === 0) cls += " sunday";
+      if(weekDay === 6) cls += " saturday";
+
+      // ✅ 오늘 날짜 체크
+      if(today.getFullYear()===year && today.getMonth()+1===month && today.getDate()===day){
+        cls += " today";
+      }
+
+      const salesValue = salesData[day] !== undefined ? salesData[day].toLocaleString() : "";
+
+      $calendar.append(`
+      <div class="${cls}">
+        <div class="date">${day}</div>
+        <div class="sales">${salesValue}</div>
+      </div>
+    `);
+    }
+  }
+
+  $(function() {
+    // ✅ 페이지 로드 시 오늘 날짜 기준 달력 렌더링
+    renderCalendar(currentYear, currentMonth);
+
+    $(".month-btn.prev").on("click", function(){
+      currentMonth--;
+      if(currentMonth < 1) { currentMonth = 12; currentYear--; }
+      renderCalendar(currentYear, currentMonth);
+    });
+
+    $(".month-btn.next").on("click", function(){
+      currentMonth++;
+      if(currentMonth > 12) { currentMonth = 1; currentYear++; }
+      renderCalendar(currentYear, currentMonth);
+    });
+
+    $(document).on("click", ".day", function() {
+      // ✅ 빈칸은 무시
+      if ($(this).hasClass("empty")) return;
+
+      // ✅ 다른 날짜의 selected 제거
+      $(".day").removeClass("selected");
+
+      // ✅ 클릭한 날짜에 selected 추가
+      $(this).addClass("selected");
+    });
+
+    updateNotification(2);
+
+    // 탭 클릭 이벤트
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  });
+
+  function updateNotification(count) {
+    const $badge = $(".notification .badge");
+    if (count > 0) {
+      $badge.text(count).show();
+    } else {
+      $badge.hide();
+    }
+  }
+
+</script>
+
+</body>
+</html>

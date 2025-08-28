@@ -1,0 +1,114 @@
+.sales-filter {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 16px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    gap: 8px;
+}
+
+.date-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.date-input {
+    flex: 1;
+    min-width: 90px;
+    height: 36px;
+    font-size: 13px;
+    padding: 0 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fafafa;
+}
+
+.date-sep {
+    font-size: 14px;
+    color: #555;
+}
+
+.btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+.btn-search {
+    height: 36px;
+    padding: 0 30px;
+    background: #FFD54F;
+    color: #5D4037;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+/* 테이블 */
+.sales-table-wrap {
+    margin: 0 16px 16px;
+    overflow-x: auto;
+
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #EAECEF;       /* ✅ 연한 회색 border 추가 */
+    box-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.04),   /* 첫 번째: 부드러운 기본 그림자 */
+            0 4px 12px rgba(0, 0, 0, 0.06);  /* 두 번째: 확산된 깊이감 */
+}
+
+.sales-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.sales-table th {
+    background: #FCFCFD;
+    color: #111;
+    padding: 10px 6px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sales-table td {
+    padding: 10px 6px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #222;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.sales-table tbody tr:nth-child(odd) {
+    background: #FFF9E5;
+}
+
+.sales-table tfoot .total-row {
+    background: #F4F6F8;
+    color: #111;
+    font-weight: bold;
+    border-top: 1px solid #e0e0e0;
+}
+
+.sales-table tfoot .total-row td {
+    padding: 10px 6px;
+    color: #333;
+}
+
+
+.btn-detail {
+    background: none;
+    border: none;
+    color: #5D4037;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+}

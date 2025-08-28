@@ -1,0 +1,500 @@
+:root {
+    --color-bg: #F7F8FA;
+    --color-text: #222;
+    --color-border: #E0E0E0;
+    --color-primary: #FFD54F;
+    --color-primary-dark: #5D4037;
+    --color-accent-blue: #64B5F6;
+    --color-accent-blue-dark: #42A5F5;
+    --color-danger: #E53935;
+    --color-danger-light: #EF5350;
+}
+
+/* Reset + Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+button {
+    /* ✅ 입체감 추가 */
+    box-shadow: 0 0.4vh 0.8vh rgba(0,0,0,0.15);  /* 바깥 그림자 */
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+button:active {
+    box-shadow: 0 0.2vh 0.4vh rgba(0, 0, 0, 0.25);
+    transform: translateY(0.2vh);
+}
+
+.admin-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* === 메인 영역 === */
+.admin-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2vh 2vw;
+    gap: 1.5vh;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.path { font-size: 1.2vw; color: #555; }
+.shop-info { font-size: 1.1vw; color: #888; }
+
+/* === 바코드 입력 === */
+.barcode-section {
+    flex: 0 0 7vh;
+    padding: 1.2vh 1vw;
+    background: #FFF;
+    border: 0.1vh solid var(--color-border);
+    border-radius: 0.6vw;
+    box-shadow: 0 0.4vh 0.8vh rgba(0,0,0,0.03);
+}
+
+.barcode-row {
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+}
+
+/* === 공통 input === */
+.form-input {
+    flex: 1;
+    padding: 0.8vh 0.8vw;
+    border: 0.1vh solid #CCC;
+    border-radius: 0.4vw;
+    background: #FDFDFD;
+    font-size: 1.1vw;
+}
+
+/* === 버튼 공통 === */
+.btn {
+    border: none;
+    border-radius: 0.5vw;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 1vh 3vw;
+}
+
+.btn.small {
+    font-size: 1vw;
+    padding: 1vh 2vw;
+    background: var(--color-primary);
+    color: var(--color-primary-dark);
+}
+
+.btn.scan {
+    font-size: 1vw;
+    padding: 1vh 2vw;
+    background: #eee;
+    color: #333;
+    border: 1px solid #ddd;
+}
+.btn.search {
+    font-size: 1vw;
+    padding: 1vh 2vw;
+    background: #FFD54F;
+    color: #333;
+    border: none;
+}
+
+/* 버튼 타입 */
+.btn.back {
+    background: #ECEFF1;
+    color: #37474F;
+    font-size: 1.1vw;
+}
+
+.btn.save {
+    background: linear-gradient(180deg, #FFE082 0%, var(--color-primary) 100%);
+    color: var(--color-primary-dark);
+    font-size: 1.1vw;
+}
+
+.btn.delete {
+    background: linear-gradient(180deg, var(--color-danger-light) 0%, var(--color-danger) 100%);
+    color: #FFF;
+    font-size: 1.1vw;
+}
+
+.btn.get-btn {
+    background: linear-gradient(180deg, var(--color-accent-blue) 0%, var(--color-accent-blue-dark) 100%);
+    color: #FFF;
+    font-size: 1vw;
+    padding: 0.8vh 2vw;
+    box-shadow: 0 0.3vh 0.6vh rgba(66,165,245,0.4);
+    white-space: nowrap;
+}
+
+/* === detail-section 공통 === */
+.detail-section {
+    background: #FFF;
+    border: 0.1vh solid var(--color-border);
+    border-radius: 0.6vw;
+    box-shadow: 0 0.4vh 0.8vh rgba(0,0,0,0.03);
+    padding: 1.5vh 1vw;
+    margin-bottom: 1vh;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-header {
+    margin-bottom: 1.2vh;
+}
+
+.section-title {
+    font-size: 1.3vw;
+    font-weight: bold;
+    color: #37474F;
+}
+
+/* === Shop Section === */
+.shop-section {
+    border: 0.2vh solid var(--color-primary);
+}
+
+/* === Grid === */
+.form-grid-hq,
+.form-grid-shop {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vw 1.2vh;
+    margin-bottom: 2vh;
+}
+
+.form-field { display: flex; flex-direction: column; }
+
+.select-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-select {
+    width: 100%;
+    border: 0.1vh solid #CCC;
+    border-radius: 0.4vw;
+    appearance: none;
+
+    font-size: 1.0vw;
+    padding: 0.8vh 1vw;
+    background: #fff;
+    color: #222;
+}
+
+
+.select-box .arrow {
+    position: absolute;
+    right: 0.8vw;
+    pointer-events: none;
+    border: solid #666;
+    border-width: 0 0.2vw 0.2vw 0;
+    display: inline-block;
+    padding: 0.3vw;
+    transform: rotate(45deg); /* 기본 아래방향 */
+    transition: transform 0.2s ease;
+}
+
+.form-label {
+    font-size: 0.95vw;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 0.5vh;
+}
+
+/* === 토글 === */
+.toggle-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2vw;
+    min-height: 5vh;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 3vw;
+    height: 1.6vw;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #CCC;
+    border-radius: 1vw;
+    transition: 0.3s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 1.2vw;
+    width: 1.2vw;
+    left: 0.2vw;
+    bottom: 0.2vw;
+    background-color: #FFF;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.switch input:checked + .slider { background-color: var(--color-primary); }
+.switch input:checked + .slider:before { transform: translateX(1.4vw); }
+
+/* === Footer === */
+.detail-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-actions, .right-actions {
+    display: flex;
+    gap: 1vw;
+}
+
+
+@media screen and (orientation: portrait) {
+
+    /* === Global === */
+    html, body {
+        font-size: 2vh;
+        overflow: hidden;
+        background: #F7F8FA;
+    }
+
+    .admin-container {
+        flex-direction: column;
+    }
+
+    .admin-main {
+        flex: 1;
+        width: 100%;
+        padding: 2vh 2vw;
+        gap: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 75vh;
+        max-width: 100%;
+    }
+
+    /* === Header === */
+    .path { font-size: 1.6vh; }
+    .shop-info { font-size: 1.5vh; }
+
+    /* === Barcode Section === */
+    .barcode-section {
+        gap: 1.2vh;
+        background: #fff;
+        padding: 1vh 2vw;
+        border-bottom: 0.1vh solid #E0E0E0;
+        margin-bottom: 1vh;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+
+    .barcode-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1vh 2vw;
+    }
+
+    .barcode-row .form-input,
+    .barcode-row .btn.small {
+        font-size: 1.5vh;
+        padding: 0.5vh;
+        border-radius: 0.6vh;
+    }
+
+    .btn.scan,
+    .btn.search{
+        font-size: 1.5vh;
+        padding: 0.5vh;
+        border-radius: 0.6vh;
+    }
+
+    /* === Collapse Toggle === */
+    .filter-toggle {
+        display: block;
+        background: #e9e9e9;
+        border: none;
+        padding: 1.2vh 2vw;
+        font-size: 1.8vh;
+        font-weight: bold;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        color: #333;
+        border-bottom: 0.1vh solid #ddd;
+        transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .filter-toggle.collapsed {
+        background: #dcdcdc;
+        color: #222;
+    }
+
+    .detail-section {
+        padding: 1vh 1.5vh;
+    }
+
+    /* === HQ Section === */
+    .hq-section {
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+
+    .hq-section .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .section-title {
+        font-size: 2vh;
+        font-weight: bold;
+    }
+
+    .btn.get-btn {
+        font-size: 1.6vh;
+        padding: 0.8vh 2vw;
+        border-radius: 0.6vh;
+    }
+
+    /* === Grid Layouts 공통 === */
+    .form-grid-hq,
+    .form-grid-shop {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1vh 3vw;
+        margin-bottom: 0.5vh;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* === Form Fields === */
+    .form-label {
+        font-size: 1.5vh;
+        margin-bottom: 0.4vh;
+    }
+
+    .form-input {
+        font-size: 1.5vh;
+        padding: 1vh;
+        border-radius: 0.5vh;
+    }
+
+    /* ✅ 마지막 두 개를 강제로 같은 row에 올림 */
+    .form-grid-shop .toggle-field:nth-last-child(2),
+    .form-grid-shop .toggle-field:nth-last-child(1) {
+        grid-column: span 1; /* 각각 한 칸 */
+        align-self: center;
+    }
+
+    /* ✅ 부모 grid에 한 row만 쓰도록 */
+    .form-grid-shop .toggle-field:nth-last-child(2) {
+        grid-column-start: 1;
+    }
+    .form-grid-shop .toggle-field:nth-last-child(1) {
+        grid-column-start: 2;
+    }
+
+
+    /* === Toggle Switch === */
+    .toggle-field {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .switch {
+        width: 4.5vh;
+        height: 2.3vh;
+    }
+
+    .slider {
+        border-radius: 1.5vh;
+    }
+
+    .slider:before {
+        height: 1.8vh;
+        width: 1.8vh;
+        left: 0.3vh;
+        bottom: 0.3vh;
+    }
+
+    .switch input:checked + .slider:before {
+        transform: translateX(2vh);
+    }
+
+    /* === Collapsed State === */
+    .barcode-section.collapsed,
+    .hq-section.collapsed {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0;
+        opacity: 0;
+    }
+
+    /* === Footer === */
+    .detail-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #FFF;
+        border-top: 0.1vh solid #E0E0E0;
+        padding: 1.5vh 2vw;
+        display: flex;
+        justify-content: space-between;
+        z-index: 50;
+    }
+
+    /* 버튼 공통 */
+    .btn.back,
+    .btn.save,
+    .btn.delete {
+        font-size: 1.8vh;
+        padding: 1.5vh 4vw;
+        border-radius: 0.8vh;
+    }
+
+    .btn.save,
+    .btn.delete {
+        padding: 1.5vh 6vw;
+    }
+
+    .form-select {
+        font-size: 1.6vh;
+        padding: 1.2vh 1vw;
+    }
+    .select-box .arrow {
+        padding: 0.4vh;
+        right: 1.3vh;
+        border-width: 0 0.3vh 0.3vh 0
+    }
+}

@@ -1,0 +1,215 @@
+.content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #f7f7f7;
+}
+
+/* === 입체감 섹션 (조회, 본사, 매장) === */
+.search-section,
+.product-section {
+    background: #fff;
+    padding: 16px;
+    margin: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow:
+            0 2px 6px rgba(0, 0, 0, 0.06),
+            0 -1px 0 rgba(255, 255, 255, 0.7) inset;
+}
+
+.shop-section {
+    border: 0.2vh solid #FFD54F;
+}
+
+/* === 섹션 타이틀 영역 === */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.section-header h3 {
+    font-size: 15px;
+    font-weight: bold;
+    color: #222;
+}
+
+/* === 필드 정렬 === */
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.field label {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.field input,
+.form-input,
+.btn.scan,
+.btn.search {
+    height: 32px;
+    font-size: 12px;
+    border-radius: 6px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.field input[readonly],
+.form-input[readonly] {
+    background: #f4f4f4;
+    color: #555;
+}
+
+.field input,
+.form-input {
+    width: 100%;            /* ✅ 부모 안에서 꽉 채우되 넘치지 않도록 */
+    min-width: 0;           /* ✅ 줄바꿈/넘침 방지 */
+    box-sizing: border-box;
+}
+
+/* === 2열 그리드 === */
+.field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 8px;
+    width: 100%;           /* ✅ 강제 */
+    box-sizing: border-box;
+}
+
+
+/* === 버튼 스타일 === */
+.btn {
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn-row .btn {
+    flex: 1;
+}
+
+.btn.scan {
+    background: #eee;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn.search {
+    background: #FFD54F;
+    color: #333;
+    border: none;
+}
+
+.btn.get-btn {
+    background: linear-gradient(180deg, #64B5F6 0%, #42A5F5 100%);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 0.3vh 0.6vh rgba(66, 165, 245, 0.3);
+    cursor: pointer;
+}
+
+/* === 하단 버튼 영역 === */
+.action-row {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+}
+
+.action-row .btn {
+    flex: 1;
+    padding: 12px 0;
+}
+
+.btn.ghost {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.btn.danger {
+    background: #e53935;
+    color: #fff;
+}
+
+.btn.primary {
+    background: #FFD54F;
+    color: #333;
+}
+
+/* === 토글 스위치 === */
+.toggle-list {
+    margin-top: 12px;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+
+.toggle-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.switch {
+    position: relative;
+    width: 42px;
+    height: 24px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #ccc;
+    border-radius: 24px;
+    transition: 0.3s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 2px;
+    bottom: 2px;
+    background: #fff;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+    background: #FFD54F;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(18px);
+}

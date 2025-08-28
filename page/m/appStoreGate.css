@@ -1,0 +1,55 @@
+.gate-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.gate-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px; /* ✅ 가로 넉넉하게 */
+}
+
+/* ✅ 카드 버튼 */
+.gate-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 50px;
+    background: #FFD54F;
+    color: #5D4037;
+    border-radius: 14px;
+    text-decoration: none;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04); /* ✅ 은은한 shadow */
+    border: 1px solid #E5E7EB;
+}
+
+/* ✅ 카드 제목 */
+.card-title {
+    font-size: 4.5vw;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+/* ✅ 서브텍스트 */
+.card-sub {
+    font-size: 3.4vw;
+    color: #555;
+}
+
+
+/* Fold / 데스크탑 대응용 */
+@media screen and (min-width: 600px) {
+    .card-title {
+        font-size: 24px; /* ✅ 데스크탑 대응 */
+    }
+    .card-sub {
+        font-size: 18px; /* ✅ 데스크탑 대응 */
+    }
+}
