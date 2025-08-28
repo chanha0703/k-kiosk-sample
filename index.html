@@ -30,7 +30,6 @@
       display: flex;
       gap: 20px;
       justify-content: center;
-      flex-wrap: wrap;
     }
 
     .btn {
@@ -49,7 +48,7 @@
     }
 
     .btn-kiosk {
-      background-color: #facc15; /* 노랑 */
+      background-color: #facc15;
       color: #111;
     }
 
@@ -59,7 +58,7 @@
     }
 
     .btn-mobile {
-      background-color: #3b82f6; /* 파랑 */
+      background-color: #3b82f6;
       color: white;
     }
 
@@ -70,16 +69,18 @@
 
     /* === 반응형 === */
     @media (max-width: 768px) {
+      .btn-group {
+        flex-direction: column;  /* 버튼을 세로로 쌓기 */
+        gap: 15px;
+      }
       h1 {
         font-size: 1.5rem;
         margin-bottom: 1.5rem;
       }
-      .btn-group {
-        flex-direction: column;
-        gap: 15px;
-      }
       .btn {
         width: 100%;
+        max-width: 120px; /* 버튼 폭 제한 */
+        margin: 0 auto;   /* 중앙 정렬 */
         font-size: 1rem;
         padding: 0.8rem 1rem;
       }
